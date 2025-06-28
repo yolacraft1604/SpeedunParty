@@ -1,0 +1,4 @@
+name: SpeedrunParty
+version: '1.0'
+main: de.yolacraft.speedrunparty.SpeedrunParty
+api-version: '1.16'
