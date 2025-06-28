@@ -2,6 +2,7 @@ de\yolacraft\speedrunparty\Games\ResultType.class
 de\yolacraft\speedrunparty\Utilitys\BrodcastTeleport.class
 de\yolacraft\speedrunparty\Utilitys\Runnables$2.class
 de\yolacraft\speedrunparty\PlayerManagement\JoinQuit.class
+de\yolacraft\speedrunparty\Board\Dice\DiceStacks.class
 de\yolacraft\speedrunparty\PlayerManagement\PlayerStorage.class
 de\yolacraft\speedrunparty\GameManagement\Controller.class
 de\yolacraft\speedrunparty\Games\TestGame\TestGameMain.class
@@ -12,6 +13,7 @@ de\yolacraft\speedrunparty\GameManagement\GameStart.class
 de\yolacraft\speedrunparty\Scoreboard\MainScoreboard.class
 de\yolacraft\speedrunparty\Games\GameMain.class
 de\yolacraft\speedrunparty\Board\Dice\DiceListener.class
+de\yolacraft\speedrunparty\Games\TestGameX\TestGameXMain.class
 de\yolacraft\speedrunparty\Utilitys\Runnables$1.class
 de\yolacraft\speedrunparty\Utilitys\CreateEmptyResults.class
 de\yolacraft\speedrunparty\Utilitys\Runnables$3.class

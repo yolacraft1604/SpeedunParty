@@ -2,12 +2,14 @@ package de.yolacraft.speedrunparty.GameManagement;
 
 import de.yolacraft.speedrunparty.Board.Dice.Dice;
 import de.yolacraft.speedrunparty.Board.Dice.Slots;
+import de.yolacraft.speedrunparty.Games.ResultType;
 import de.yolacraft.speedrunparty.Games.TestGame.TestGameMain;
 import de.yolacraft.speedrunparty.SpeedrunParty;
 import de.yolacraft.speedrunparty.Utilitys.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -17,13 +19,18 @@ public class Controller {
 
     private List<PlayerScore> data;
     private static Dice dice;
-    BukkitRunnable wait;
+    private List<Player> first;
+    private List<Player> second;
+    private List<Player> third;
 
     public Controller(Dice d){
         dice = d;
     }
     public void startGame(){
         data = new ArrayList<>();
+        first = new ArrayList<>();
+        second = new ArrayList<>();
+        third = new ArrayList<>();
         SpeedrunParty.getPlayerStorage().getPlayers().forEach(player -> {
             data.add(new PlayerScore(player, 0));
         });
@@ -70,9 +77,9 @@ public class Controller {
 
     private void GameNow(){
         SpeedrunParty.getGameClusterRoot().pick();
-        BrodcastMessage.sendBrodcastMessageWithPrefix(ChatColor.GRAY + "Next Game: " + ChatColor.YELLOW +
-                SpeedrunParty.getGameClusterRoot().getTitle());
-        Runnables.runLater(80, () -> {
+        SpeedrunParty.getGameClusterRoot().showAnimation();
+
+        Runnables.runLater(160, () -> {
             SpeedrunParty.getGameClusterRoot().launch();
         });
     }
@@ -83,14 +90,27 @@ public class Controller {
         }
         dice.resetDice();
         System.out.println(data);
+        first = new ArrayList<>();
+        second = new ArrayList<>();
+        third = new ArrayList<>();
         Next();
     }
 
     public void GameDone(){
+        for (ResultType result : SpeedrunParty.getGameClusterRoot().getScores()){
+            if(result.getPlacement() == 1)
+                first.add(result.getPlayer());
+            if(result.getPlacement() == 2)
+                second.add(result.getPlayer());
+            if(result.getPlacement() == 3)
+                third.add(result.getPlayer());
+        }
 
+
+        Next();
     }
 
-    public static Dice getDice() {
+    public Dice getDice() {
         return dice;
     }
 
@@ -101,4 +121,15 @@ public class Controller {
         data.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
     }
 
+    public List<Player> getFirst() {
+        return first;
+    }
+
+    public List<Player> getSecond() {
+        return second;
+    }
+
+    public List<Player> getThird() {
+        return third;
+    }
 }

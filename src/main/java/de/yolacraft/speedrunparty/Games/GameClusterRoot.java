@@ -1,8 +1,14 @@
 package de.yolacraft.speedrunparty.Games;
 
 import de.yolacraft.speedrunparty.Games.TestGame.TestGameMain;
+import de.yolacraft.speedrunparty.Games.TestGameX.TestGameXMain;
+import de.yolacraft.speedrunparty.Utilitys.BrodcastSound;
 import de.yolacraft.speedrunparty.Utilitys.BrodcastTeleport;
+import de.yolacraft.speedrunparty.Utilitys.BrodcastTitle;
+import de.yolacraft.speedrunparty.Utilitys.Runnables;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,14 +23,16 @@ public class GameClusterRoot {
 
     public GameClusterRoot() {
         games = Arrays.asList(
-                new TestGameMain()
+                new TestGameMain(),
+                new TestGameXMain()
         );
 
     }
 
     public void recreate (){
         games = Arrays.asList(
-                new TestGameMain()
+                new TestGameMain(),
+                new TestGameXMain()
         );
 
     }
@@ -36,7 +44,15 @@ public class GameClusterRoot {
     }
 
     public void showAnimation() {
-        // Animation-Logik
+        Runnables.runAmount(20,4,5*3, () -> {
+            int selection = rand.nextInt(games.size());
+            BrodcastTitle.sendBrodcastTitle(ChatColor.YELLOW + games.get(selection).getName(), "selecting Game...", 0, 10, 0);
+            BrodcastSound.sendBrodcastSound(Sound.BLOCK_NOTE_BLOCK_HAT, 1f, 1f);
+        });
+        Runnables.runLater(80, () -> {
+            BrodcastTitle.sendBrodcastTitle(game.getName(), "selected Game", 0, 40, 5);
+            BrodcastSound.sendBrodcastSound(Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f);
+        });
     }
 
     public void launch(){
